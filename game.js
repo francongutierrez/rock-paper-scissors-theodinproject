@@ -44,7 +44,7 @@ function game() {
     let userScore = 0;
     let computerScore = 0;
 
-    for (i=0; i<5 ; i++) {
+    while (userScore!=5 || computerScore!=5) {
         userChoose = prompt('Please, enter an option ("Rock", "Paper" or "Scissors")').toLowerCase();
         while (userChoose != 'rock' && userChoose != 'paper' && userChoose != 'scissors') {
             userChoose = prompt('Please, enter a valid option ("Rock", "Paper" or "Scissors")').toLowerCase();
