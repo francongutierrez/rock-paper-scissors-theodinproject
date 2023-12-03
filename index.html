@@ -4,9 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="game.js"></script>
+    <script src="game.js" defer></script>
 </head>
 <body>
-    
+    <h1>Rock, paper, scissors</h1>
+    <h5>Select an option:</h5>
+    <div class="options">
+        <button id="rock" class="choice">Rock</button>
+        <button id="paper" class="choice">Paper</button>
+        <button id="scissors" class="choice">Scissors</button>
+    </div><br>
+    <button onclick="reset()">Reset</button><br>
+    <div id="results"></div><br>
+    <div id="score">
+        <div id="userScore"></div>
+        <div id="computerScore"></div>
+    </div><br>
+    <div id="finalResult"></div><br>
 </body>
 </html>

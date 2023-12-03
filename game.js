@@ -14,59 +14,91 @@ function getComputerChoice() {
 function playRound(playerChoice, computerChoice) {
 
     let choose = playerChoice.toLowerCase();
+    let results = document.querySelector('#results');
 
     if (choose == 'rock' && computerChoice == 'Rock') {
-        return 'Tie! Both players chose Rock';
+        results.innerText = 'Tie! Both players chose Rock';
+        return 0;
     } else if (choose == 'rock' && computerChoice == 'Paper') {
-        return 'You lose! Paper beats Rock';
+        results.innerText = 'You lose! Paper beats Rock';
+        return 1;
     } else if (choose == 'rock' && computerChoice == 'Scissors') {
-        return 'You win! Rock beats Scissors';
+        results.innerText = 'You win! Rock beats Scissors';
+        return 2;
     } else if (choose == 'paper' && computerChoice == 'Paper') {
-        return 'Tie! Both players chose Paper';
+        results.innerText = 'Tie! Both players chose Paper';
+        return 0;
     } else if (choose == 'paper' && computerChoice == 'Rock') {
-        return 'You win! Paper beats Rock';
+        results.innerText = 'You win! Paper beats Rock';
+        return 2;
     } else if (choose == 'paper' && computerChoice == 'Scissors') {
-        return 'You lose! Scissors beats Paper'; 
+        results.innerText = 'You lose! Scissors beats Paper'; 
+        return 1; 
     } else if (choose == 'scissors' && computerChoice == 'Scissors') {
-        return 'Tie! Both players chose Scissors';
+        results.innerText = 'Tie! Both players chose Scissors';
+        return 0;
     } else if (choose == 'scissors' && computerChoice == 'Rock') {
-        return 'You lose! Rock beats Scissors';
+        results.innerText = 'You lose! Rock beats Scissors';
+        return 1;
     } else if (choose == 'scissors' && computerChoice == 'Paper') {
-        return 'You win! Scissors beats Paper';
+        results.innerText = 'You win! Scissors beats Paper';
+        return 2;
     } else {
-        return 'Please, enter a valid option (Rock, Paper or Scissors)';
+        results.innerText = 'Please, enter a valid option (Rock, Paper or Scissors)';
     }
 }
 
+let userScore = {score: 0};
+let computerScore = {score: 0};
 
+function game(userChoose, user, computer) {
+    let finalResult = document.querySelector('#finalResult');
+    let numUser = document.querySelector('#userScore');
+    let numComputer = document.querySelector('#computerScore');
 
-function game() {
-    let userScore = 0;
-    let computerScore = 0;
-
-    while (userScore!=5 || computerScore!=5) {
-        userChoose = prompt('Please, enter an option ("Rock", "Paper" or "Scissors")').toLowerCase();
-        while (userChoose != 'rock' && userChoose != 'paper' && userChoose != 'scissors') {
-            userChoose = prompt('Please, enter a valid option ("Rock", "Paper" or "Scissors")').toLowerCase();
-        }
-        returned = playRound(userChoose, getComputerChoice());
-        console.log(returned);
-        spliced = returned.substring(0,5);
-        if (spliced == 'You w') {
-            userScore++;
-        }
-        else if (spliced == 'You l') {
-            computerScore++;
-        }
-        else {}
+    
+    returned = playRound(userChoose, getComputerChoice());
+    if (returned == 2) {
+        user.score++;
     }
+    else if (returned == 1) {
+        computer.score++;
+    }
+    else {}
 
-    if (userScore>computerScore) {
-        return 'YOU WON THE GAME!';
-    } else if (userScore<computerScore) {
-        return 'You lose the game :( !';
+    numUser.innerText = 'User score: ' + user.score;
+    numComputer.innerText = 'Computer score: ' + computer.score;
+
+    if (user.score == 3) {
+        finalResult.innerText = 'YOU WON THE GAME!';
+        user.score = 0;
+        computer.score = 0;
+    } 
+    if (computer.score == 3) {
+        finalResult.innerText = 'You lose the game :( !';
+        user.score = 0;
+        computer.score = 0;
     }
-    else {
-        return "It's a TIE!";
+}
+
+const gameContainer = document.querySelector('.options');
+
+gameContainer.addEventListener('click', (event) => {
+    const target = event.target;
+    
+    if (target.matches('.choice')) {
+        game(target.id, userScore, computerScore);
     }
+});
+
+function reset() {
+    let numUser = document.querySelector('#userScore');
+    let numComputer = document.querySelector('#computerScore');
+    let results = document.querySelector('#results');
+    userScore.score = 0;
+    computerScore.score = 0;
+    numUser.innerText = 'User score: ' + userScore.score;
+    numComputer.innerText = 'Computer score: ' + computerScore.score;
+    results.innerText = 'Scores have been reseted';
+
 }
